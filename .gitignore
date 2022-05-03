@@ -1,0 +1,8 @@
+/build
+/env
+/venv
+
+# Rinoh output
+*.pdf
+*.rtc
+*.stylelog

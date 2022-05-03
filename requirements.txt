@@ -1,0 +1,6 @@
+pip install --upgrade git+https://github.com/amaranth-lang/amaranth.git#egg=amaranth[builtin-yosys]
+pip install --upgrade git+https://github.com/amaranth-lang/amaranth-boards.git
+pip install --upgrade git+https://github.com/amaranth-lang/amaranth-soc.git
+pip install --upgrade yowasp-yosys
+pip install --upgrade yowasp-nextpnr-ice40
+
