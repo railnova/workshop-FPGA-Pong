@@ -17,11 +17,11 @@ diagrams = [
 """{ "head": { "text": "Button debouncing" },
  "signal": [
  { "name": "CK",   "wave": "P......", "period": 2  },
- { "name": "button",  "wave": "0.101...0.1...", "phase": 0.5 },
+ { "name": "button",  "wave": "0.10.1..0.1...", "phase": 0.5 },
  { "name": "timer",  "wave": "=.=.=.=...=.=.", "data": ["0", "2", "1", "0", "2", "1"] },
  { "name": "pressed", "wave": "0.1.....0.1..." }
 ]}""",
-"""{ "head": { "text": "Combinatory vs Syncronous assignment" },
+"""{ "head": { "text": "Combinatory vs Synchronous assignment" },
 "signal": [
  { "name": "CK",   "wave": "P........", "period": 2  },
  { "name": "led_col[0]",  "wave": "1.0.............1." },
@@ -42,12 +42,18 @@ diagrams = [
 ]}"""
 ]
 
-for i, diagram in enumerate(diagrams):
-    svg_path = f"doc/diagram{i+1:02}.svg"
-    png_path = f"doc/diagram{i+1:02}.png"
-    print(f"Building {png_path}")
-    svg = wavedrom.render(diagram)
-    svg.saveas(svg_path)
-    cairosvg.svg2pdf(url=svg_path, write_to=png_path, output_width=500)
+def build_diagrams(pdf_mode=False):
+    for i, diagram in enumerate(diagrams):
+        svg_path = f"doc/diagram{i+1:02}.svg"
+        png_path = f"doc/diagram{i+1:02}.png"
+        print(f"Building {png_path}")
+        svg = wavedrom.render(diagram)
+        svg.saveas(svg_path)
+        if pdf_mode:
+            cairosvg.svg2pdf(url=svg_path, write_to=png_path, output_width=500)
+        else:
+            cairosvg.svg2png(url=svg_path, write_to=png_path, output_width=1000)
 
+build_diagrams(True)  # first we make PDF diagrams as they look better with Rinoh
 os.system('rinoh README.md')
+build_diagrams()  # Now we make PNG images so it's viewable online
